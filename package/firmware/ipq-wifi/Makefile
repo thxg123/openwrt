@@ -35,6 +35,7 @@ ALLWIFIBOARDS:= \
 	engenius_emd1 \
 	engenius_emr3500 \
 	ezviz_cs-w3-wd1200g-eup \
+	glinet_gl-b2200-emmc \
 	glinet_gl-s1300 \
 	linksys_ea8300 \
 	mobipromo_cm520-79f \
@@ -109,6 +110,7 @@ $(eval $(call generate-ipq-wifi-package,engenius_eap2200,EnGenius EAP2200))
 $(eval $(call generate-ipq-wifi-package,engenius_emd1,EnGenius EMD1))
 $(eval $(call generate-ipq-wifi-package,engenius_emr3500,EnGenius EMR3500))
 $(eval $(call generate-ipq-wifi-package,ezviz_cs-w3-wd1200g-eup,EZVIZ CS-W3-WD1200G EUP))
+$(eval $(call generate-ipq-wifi-package,glinet_gl-b2200-emmc,GL.iNet GL-B2200-EMMC))
 $(eval $(call generate-ipq-wifi-package,glinet_gl-s1300,GL.iNet GL-S1300))
 $(eval $(call generate-ipq-wifi-package,linksys_ea8300,Linksys EA8300))
 $(eval $(call generate-ipq-wifi-package,mobipromo_cm520-79f,MobiPromo CM520-79F))

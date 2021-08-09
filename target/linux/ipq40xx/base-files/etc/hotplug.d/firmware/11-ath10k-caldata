@@ -39,6 +39,7 @@ case "$FIRMWARE" in
 	openmesh,a62)
 		caldata_extract "0:ART" 0x9000 0x2f20
 		;;
+	glinet,gl-b2200-emmc |\
 	linksys,ea8300)
 		caldata_extract "ART" 0x9000 0x2f20
 		# OEM assigns 4 sequential MACs
@@ -54,6 +55,7 @@ case "$FIRMWARE" in
 	cilab,meshpoint-one |\
 	ezviz,cs-w3-wd1200g-eup |\
 	glinet,gl-b1300 |\
+	glinet,gl-b2200-emmc |\
 	glinet,gl-s1300 |\
 	glinet,gl-s1300-emmc |\
 	linksys,ea6350v3 |\
@@ -148,6 +150,7 @@ case "$FIRMWARE" in
 	cilab,meshpoint-one |\
 	ezviz,cs-w3-wd1200g-eup |\
 	glinet,gl-b1300 |\
+	glinet,gl-b2200-emmc |\
 	glinet,gl-s1300 |\
 	glinet,gl-s1300-emmc |\
 	linksys,ea6350v3 |\

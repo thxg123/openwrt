@@ -1,13 +1,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=uclient
-PKG_RELEASE=1
+PKG_VERSION:=2015-04-14
+PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL=$(PROJECT_GIT)/project/uclient.git
-PKG_MIRROR_HASH:=05962d4edbe7b856e017d974c3d7e34dfa5f905821ab7a3534acc5886af4e5c7
-PKG_SOURCE_DATE:=2020-06-17
-PKG_SOURCE_VERSION:=c66098611f16806a936a3a3f92113a16382fc4d9
+PKG_SOURCE_URL:=http://git.openwrt.org/project/uclient.git
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=81fdb8fdf1470e1c7bf3124ff20d17feaeb519ee
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_MIRROR_MD5SUM:=
 CMAKE_INSTALL:=1
 
 PKG_BUILD_DEPENDS:=ustream-ssl
@@ -15,7 +17,7 @@ PKG_BUILD_DEPENDS:=ustream-ssl
 PKG_LICENSE:=ISC
 PKG_LICENSE_FILES:=
 
-PKG_MAINTAINER:=Felix Fietkau <nbd@nbd.name>
+PKG_MAINTAINER:=Felix Fietkau <nbd@openwrt.org>
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -24,7 +26,7 @@ define Package/libuclient
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=HTTP/1.1 client library
-  ABI_VERSION:=20160123
+  ABI_VERSION:=$(PKG_VERSION)
   DEPENDS:=+libubox
 endef
 
@@ -32,8 +34,6 @@ define Package/uclient-fetch
   SECTION:=net
   CATEGORY:=Network
   TITLE:=Tiny wget replacement using libuclient
-  ALTERNATIVES:=200:/usr/bin/wget:/bin/uclient-fetch
-  PROVIDES:=wget
   DEPENDS:=+libuclient
 endef
 
@@ -43,8 +43,8 @@ define Package/libuclient/install
 endef
 
 define Package/uclient-fetch/install
-	$(INSTALL_DIR) $(1)/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/uclient-fetch $(1)/bin/
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/uclient-fetch $(1)/usr/bin/
 endef
 
 $(eval $(call BuildPackage,libuclient))

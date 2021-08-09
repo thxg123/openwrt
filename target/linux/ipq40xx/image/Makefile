@@ -43,6 +43,17 @@ define Device/UbiFit
 	IMAGE/nand-sysupgrade.bin := sysupgrade-tar | append-metadata
 endef
 
+define Build/qsdk-ipq-app-gpt
+	cp $@ $@.tmp 2>/dev/null || true
+		ptgen -g -o $@.tmp -a 1 -l 1024 \
+			-t 0x2e -N 0:HLOS -r -p 32M \
+			-t 0x83 -N rootfs -r -p 128M \
+				-N rootfs_data -p 512M \
+				-N user_data -p 6766M
+	cat $@.tmp >> $@
+	rm $@.tmp
+endef
+
 define Device/DniImage
 	$(call Device/FitzImage)
 	NETGEAR_BOARD_ID :=
@@ -448,6 +459,22 @@ define Device/glinet_gl-b1300
 	IMAGE/sysupgrade.bin := append-kernel |append-rootfs | pad-rootfs | append-metadata
 endef
 TARGET_DEVICES += glinet_gl-b1300
+
+define Device/glinet_gl-b2200-emmc
+    $(call Device/FitImage)
+	DEVICE_VENDOR := GL.iNet
+	DEVICE_MODEL := GL-B2200-EMMC
+	SOC := qcom-ipq4019
+	DEVICE_DTS_CONFIG := config@ap.dk04.1-c3
+	KERNEL_INITRAMFS_SUFFIX := -recovery.itb
+	IMAGES := sdcard.img.gz
+	IMAGE/sdcard.img.gz := qsdk-ipq-app-gpt |\
+                pad-to 1024k | append-kernel |\
+                pad-to 33792k | append-rootfs |\
+                append-metadata | gzip
+	DEVICE_PACKAGES := ipq-wifi-glinet_gl-b2200-emmc kmod-fs-ext4 kmod-mmc kmod-spi-dev mkf2fs e2fsprogs kmod-fs-f2fs
+endef
+TARGET_DEVICES += glinet_gl-b2200-emmc
 
 define Device/glinet_gl-s1300
 	$(call Device/FitImage)
