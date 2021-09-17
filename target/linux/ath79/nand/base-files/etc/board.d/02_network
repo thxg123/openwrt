@@ -21,6 +21,11 @@ ath79_setup_interfaces()
 		ucidef_add_switch "switch0" \
 			"0@eth0" "2:lan:2" "3:lan:1" "1:wan"
 		;;
+	glinet,gl-xe300-iot|\
+	glinet,gl-xe300-nor|\
+	glinet,gl-xe300-nor-nand)
+		ucidef_set_interfaces_lan_wan "eth0" "eth1"
+		;;
 	netgear,wndr3700-v4|\
 	netgear,wndr4300|\
 	netgear,wndr4300sw|\

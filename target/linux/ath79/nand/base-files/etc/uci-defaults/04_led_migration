@@ -6,8 +6,8 @@ board=$(board_name)
 case "$board" in
 esac
 
-remove_devicename_leds
+#remove_devicename_leds
 
-migrations_apply system
+#migrations_apply system
 
 exit 0

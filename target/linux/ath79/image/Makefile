@@ -77,7 +77,7 @@ define Device/Default
   COMPILE :=
   IMAGES := sysupgrade.bin
   IMAGE/sysupgrade.bin = append-kernel | pad-to $$$$(BLOCKSIZE) | \
-	append-rootfs | pad-rootfs | append-metadata | check-size
+	append-rootfs | pad-rootfs | append-gl-metadata | check-size
 endef
 
 include $(SUBTARGET).mk
