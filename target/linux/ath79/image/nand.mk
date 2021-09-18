@@ -77,33 +77,31 @@ define Device/domywifi_dw33d
 endef
 TARGET_DEVICES += domywifi_dw33d
 
-define Device/glinet_gl-ar300m-common-nand
+define Device/glinet_gl-ar300m-common
   SOC := qca9531
   DEVICE_VENDOR := GL.iNet
   DEVICE_MODEL := GL-AR300M
-  DEVICE_PACKAGES := kmod-usb2
-  KERNEL_SIZE := 4096k
-  IMAGE_SIZE := 16000k
-  PAGESIZE := 2048
-  VID_HDR_OFFSET := 2048
+  DEVICE_PACKAGES := kmod-usb-core kmod-usb2 block-mount kmod-usb-storage kmod-usb-ledtrig-usbport
+  SUPPORTED_DEVICES += gl-ar300m glinet,gl-ar300m
 endef
 
 define Device/glinet_gl-ar300m-nand
-  $(Device/glinet_gl-ar300m-common-nand)
+  $(Device/glinet_gl-ar300m-common)
   DEVICE_VARIANT := NAND
+  KERNEL_SIZE := 4096k
   BLOCKSIZE := 128k
-  IMAGES += factory.img
-  IMAGE/factory.img := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-ubi
-  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
-  SUPPORTED_DEVICES += glinet,gl-ar300m-nor
+  PAGESIZE := 2048
+  VID_HDR_OFFSET := 2048
+  IMAGES := factory.img sysupgrade.tar
+  IMAGE/sysupgrade.tar := sysupgrade-tar-compat-1806 | append-gl-metadata
+  IMAGE/factory.img := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-ubi | append-gl-metadata
 endef
 TARGET_DEVICES += glinet_gl-ar300m-nand
 
 define Device/glinet_gl-ar300m-nor
-  $(Device/glinet_gl-ar300m-common-nand)
+  $(Device/glinet_gl-ar300m-common)
   DEVICE_VARIANT := NOR
-  BLOCKSIZE := 64k
-  SUPPORTED_DEVICES += glinet,gl-ar300m-nand gl-ar300m
+  IMAGE_SIZE := 16000k
 endef
 TARGET_DEVICES += glinet_gl-ar300m-nor
 
