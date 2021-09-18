@@ -1516,6 +1516,7 @@ static int ag71xx_probe(struct platform_device *pdev)
 	struct resource *res;
 	struct ag71xx *ag;
 	const void *mac_addr;
+	const char *ifname = NULL;
 	u32 max_frame_len;
 	int tx_size, err;
 
@@ -1729,6 +1730,9 @@ static int ag71xx_probe(struct platform_device *pdev)
 		goto err_phy_disconnect;
 
 	platform_set_drvdata(pdev, dev);
+
+    if(!of_property_read_string(np, "ifname",&ifname))
+        memcpy(dev->name,ifname,strlen(ifname)+1);
 
 	err = register_netdev(dev);
 	if (err) {

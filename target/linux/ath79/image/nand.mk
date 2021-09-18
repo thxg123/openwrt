@@ -107,6 +107,16 @@ define Device/glinet_gl-ar300m-nor
 endef
 TARGET_DEVICES += glinet_gl-ar300m-nor
 
+define Device/glinet_gl-mifi
+  SOC := ar9331
+  DEVICE_VENDOR := GL.iNET
+  DEVICE_MODEL := GL-MiFi
+  DEVICE_PACKAGES := kmod-usb-chipidea2
+  IMAGE_SIZE := 16000k
+  SUPPORTED_DEVICES += gl-mifi glinet,gl-mifi
+endef
+TARGET_DEVICES += glinet_gl-mifi
+
 define Device/glinet_gl-xe300-common
   SOC := qca9531
   DEVICE_VENDOR := GL.iNet
