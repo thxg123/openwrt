@@ -77,6 +77,34 @@ define Device/domywifi_dw33d
 endef
 TARGET_DEVICES += domywifi_dw33d
 
+define Device/glinet_gl-x300b-common
+  SOC := qca9531
+  DEVICE_VENDOR := GL.iNet
+  DEVICE_MODEL := GL-X300B
+  DEVICE_PACKAGES := kmod-usb2 block-mount
+  SUPPORTED_DEVICES += gl-x300b glinet,gl-x300b
+endef
+
+define Device/glinet_gl-x300b-nor
+  $(Device/glinet_gl-x300b-common)
+  DEVICE_VARIANT := NOR
+  IMAGE_SIZE := 16000k
+endef
+TARGET_DEVICES += glinet_gl-x300b-nor
+
+define Device/glinet_gl-x300b-nor-nand
+  $(Device/glinet_gl-x300b-common)
+  DEVICE_VARIANT := NOR/NAND
+  KERNEL_SIZE := 4096k
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  VID_HDR_OFFSET := 2048
+  IMAGES := factory.img sysupgrade.tar
+  IMAGE/sysupgrade.tar := sysupgrade-tar-compat-1806 | append-gl-metadata
+  IMAGE/factory.img := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-ubi | append-gl-metadata
+endef
+TARGET_DEVICES += glinet_gl-x300b-nor-nand
+
 define Device/glinet_gl-ar300m-common
   SOC := qca9531
   DEVICE_VENDOR := GL.iNet
