@@ -10,6 +10,10 @@ case "$board" in
 glinet,gl-ar150)
 	ucidef_set_led_wlan "wlan" "WLAN" "gl-ar150:orange:wlan" "phy0tpt"
 	;;
+glinet,gl-usb150)
+	ucidef_set_led_wlan "wlan" "WLAN" "gl-usb150:green:wlan" "phy0tpt"
+	ucidef_set_led_default "power" "POWER" "gl-usb150:green:power" "1"
+    ;;
 glinet,gl-ar300m-nand|\
 glinet,gl-ar300m-nor)
 	ucidef_set_led_netdev "lan" "LAN" "gl-ar300m:green:lan" "eth1"

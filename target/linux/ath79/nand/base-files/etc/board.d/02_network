@@ -9,6 +9,7 @@ ath79_setup_interfaces()
 
 	case "$board" in
 	aerohive,hiveap-121|\
+	glinet,gl-usb150|\
 	glinet,gl-e750)
 		ucidef_set_interface_lan "eth0"
 		;;
