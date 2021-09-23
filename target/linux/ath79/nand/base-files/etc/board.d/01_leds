@@ -7,6 +7,9 @@ board_config_update
 board=$(board_name)
 
 case "$board" in
+glinet,gl-ar150)
+	ucidef_set_led_wlan "wlan" "WLAN" "gl-ar150:orange:wlan" "phy0tpt"
+	;;
 glinet,gl-ar300m-nand|\
 glinet,gl-ar300m-nor)
 	ucidef_set_led_netdev "lan" "LAN" "gl-ar300m:green:lan" "eth1"

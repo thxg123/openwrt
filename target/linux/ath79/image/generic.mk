@@ -1157,16 +1157,6 @@ define Device/glinet_6416
 endef
 TARGET_DEVICES += glinet_6416
 
-define Device/glinet_gl-ar150
-  SOC := ar9330
-  DEVICE_VENDOR := GL.iNet
-  DEVICE_MODEL := GL-AR150
-  DEVICE_PACKAGES := kmod-usb-chipidea2
-  IMAGE_SIZE := 16000k
-  SUPPORTED_DEVICES += gl-ar150
-endef
-TARGET_DEVICES += glinet_gl-ar150
-
 define Device/glinet_gl-ar750
   SOC := qca9531
   DEVICE_VENDOR := GL.iNet

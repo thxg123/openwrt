@@ -77,6 +77,15 @@ define Device/domywifi_dw33d
 endef
 TARGET_DEVICES += domywifi_dw33d
 
+define Device/glinet_gl-ar150
+  SOC := ar9330
+  DEVICE_TITLE := GL.iNet GL-AR150
+  DEVICE_PACKAGES := kmod-usb2  block-mount
+  IMAGE_SIZE := 16000k
+  SUPPORTED_DEVICES += gl-ar150 glinet,gl-ar150
+endef
+TARGET_DEVICES += glinet_gl-ar150
+
 define Device/glinet_gl-x300b-common
   SOC := qca9531
   DEVICE_VENDOR := GL.iNet
@@ -136,7 +145,7 @@ TARGET_DEVICES += glinet_gl-ar300m-nor
 define Device/glinet_gl-mifi
   SOC := ar9331
   DEVICE_VENDOR := GL.iNET
-  DEVICE_MODEL := GL-MiFi
+  DEVICE_MODEL := GL-MIFI
   DEVICE_PACKAGES := kmod-usb-chipidea2
   IMAGE_SIZE := 16000k
   SUPPORTED_DEVICES += gl-mifi glinet,gl-mifi

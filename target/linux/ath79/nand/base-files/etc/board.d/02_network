@@ -25,6 +25,7 @@ ath79_setup_interfaces()
 	glinet,gl-ar300m-nand|\
     glinet,gl-x300b-nor|\
     glinet,gl-x300b-nor-nand|\
+	glinet,gl-ar150|\
 	glinet,gl-mifi)
 		ucidef_set_interfaces_lan_wan "eth1" "eth0"
 		;;

@@ -1,45 +1,63 @@
 // SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-
-#include "ar9330.dtsi"
+/dts-v1/;
 
 #include <dt-bindings/gpio/gpio.h>
 #include <dt-bindings/input/input.h>
+
+#include "ar9330_glinet.dtsi"
 
 / {
 	model = "GL.iNet GL-AR150";
 	compatible = "glinet,gl-ar150", "qca,ar9330";
 
 	aliases {
-		led-boot = &led_power;
-		led-failsafe = &led_power;
-		led-running = &led_power;
-		led-upgrade = &led_power;
-		label-mac-device = &eth0;
+		serial0 = &uart;
+       };
+
+	gl_hw {
+		compatible = "gl-hw-info";
+
+		#address-cells = <1>;
+		#size-cells = <1>;
+		model = "ar150";
+		wan = "eth0";
+		lan = "eth1";
+		switch-button = "gpio-8";
+		reset-button = "gpio-11";
+		usb-port = "1-1";
+		factory_data {
+			device_mac = <&art 0>;
+			device_ddns = <&art 0x10>;
+			device_sn_bak = <&art 0x20>;
+			device_sn = <&art 0x30>;
+			country_code = <&art 0x88>;
+		};
 	};
 
 	leds {
 		compatible = "gpio-leds";
 
 		wlan {
-			label = "orange:wlan";
+			label = "gl-ar150:red:wlan";
 			gpios = <&gpio 0 GPIO_ACTIVE_HIGH>;
 			linux,default-trigger = "phy0tpt";
 		};
 
 		configurable {
-			label = "green:configurable";
+			label = "gl-ar150:green:configurable";
 			gpios = <&gpio 13 GPIO_ACTIVE_HIGH>;
 		};
 
 		led_power: power {
-			label = "green:power";
+			label = "gl-ar150:green:power";
 			gpios = <&gpio 15 GPIO_ACTIVE_HIGH>;
 			default-state = "on";
 		};
 	};
 
 	keys {
-		compatible = "gpio-keys";
+		compatible = "gpio-keys-polled";
+		poll-interval = <100>;
 
 		manual {
 			label = "manual";
@@ -48,7 +66,7 @@
 		};
 
 		auto {
-			label = "auto";
+			label = "BTN_8";
 			linux,code = <BTN_8>;
 			gpios = <&gpio 8 GPIO_ACTIVE_HIGH>;
 		};
@@ -59,6 +77,19 @@
 			gpios = <&gpio 11 GPIO_ACTIVE_HIGH>;
 		};
 	};
+    gpio-export {
+        compatible = "gpio-export";
+        gpio_usb_power {
+            gpio-export,name = "usb_power";
+            gpio-export,output = <1>;
+            gpios = <&gpio 6 GPIO_ACTIVE_HIGH>;
+        };
+
+    };
+};
+
+&uart {
+	status = "okay";
 };
 
 &usb {
@@ -66,17 +97,27 @@
 	status = "okay";
 };
 
+&usb {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+
+	hub_port: port@1 {
+		reg = <1>;
+		#trigger-source-cells = <0>;
+	};
+};
 &usb_phy {
 	status = "okay";
-	gpios = <&gpio 6 GPIO_ACTIVE_HIGH>;
 };
 
 &spi {
+	num-chipselects = <1>;
 	status = "okay";
 
 	flash@0 {
 		compatible = "jedec,spi-nor";
-		spi-max-frequency = <50000000>;
+		spi-max-frequency = <104000000>;
 		reg = <0>;
 
 		partitions {
@@ -114,13 +155,15 @@
 	status = "okay";
 
 	mtd-mac-address = <&art 0x0>;
+
+    ifname = "eth0";
 };
 
 &eth1 {
 	status = "okay";
 
 	mtd-mac-address = <&art 0x0>;
-
+    ifname = "eth1";
 	gmac-config {
 		device = <&gmac>;
 
@@ -131,7 +174,6 @@
 
 &wmac {
 	status = "okay";
-
 	mtd-cal-data = <&art 0x1000>;
 	mtd-mac-address = <&art 0x0>;
 };
