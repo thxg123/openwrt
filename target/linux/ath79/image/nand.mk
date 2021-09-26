@@ -215,7 +215,12 @@ define Device/glinet_gl-ar750s-nor-nand
   $(Device/glinet_gl-ar750s-common)
   DEVICE_VARIANT := NOR/NAND
   KERNEL_SIZE := 4096k
-  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  VID_HDR_OFFSET := 2048
+  IMAGES := factory.img sysupgrade.tar
+  IMAGE/sysupgrade.tar := sysupgrade-tar | append-gl-metadata
+  IMAGE/factory.img := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-ubi | append-gl-metadata
   SUPPORTED_DEVICES += glinet,gl-ar750s-nor
 endef
 TARGET_DEVICES += glinet_gl-ar750s-nor-nand

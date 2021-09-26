@@ -37,6 +37,10 @@ glinet,gl-xe300-nor-nand)
     ucidef_set_led_netdev "wan" "WAN" "gl-xe300:green:wan" "eth1"
     ucidef_set_led_netdev "3gnet" "LTE" "gl-xe300:green:lte" "wwan0"
     ;;
+glinet,gl-ar750)
+	ucidef_set_led_wlan "wlan2g" "WLAN2G" "gl-ar750:white:wlan2g" "phy1tpt"
+	ucidef_set_led_wlan "wlan5g" "WLAN5G" "gl-ar750:white:wlan5g" "phy0tpt"
+    ;;
 netgear,wndr3700-v4|\
 netgear,wndr4300|\
 netgear,wndr4300sw|\

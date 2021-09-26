@@ -1163,7 +1163,7 @@ define Device/glinet_gl-ar750
   DEVICE_MODEL := GL-AR750
   DEVICE_PACKAGES := kmod-usb2 kmod-ath10k-ct ath10k-firmware-qca9887-ct
   IMAGE_SIZE := 16000k
-  SUPPORTED_DEVICES += gl-ar750
+  SUPPORTED_DEVICES += gl-ar750 glinet,gl-ar750
 endef
 TARGET_DEVICES += glinet_gl-ar750
 

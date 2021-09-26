@@ -17,6 +17,7 @@ ath79_setup_interfaces()
 		ucidef_add_switch "switch0" \
 			"0@eth0" "1:wan" "2:lan" "3:lan" "4:lan" "5:lan" "6@eth1"
 		;;
+	glinet,gl-ar750s|\
 	glinet,gl-ar750s-nor|\
 	glinet,gl-ar750s-nor-nand)
 		ucidef_add_switch "switch0" \
@@ -35,6 +36,11 @@ ath79_setup_interfaces()
 	glinet,gl-xe300-nor-nand)
 		ucidef_set_interfaces_lan_wan "eth0" "eth1"
 		;;
+	glinet,gl-ar750)
+		ucidef_set_interfaces_lan_wan "eth1.1" "eth0"
+		ucidef_add_switch "switch0" \
+			"0@eth1" "1:lan" "2:lan"
+        ;;
 	netgear,wndr3700-v4|\
 	netgear,wndr4300|\
 	netgear,wndr4300sw|\
