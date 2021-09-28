@@ -246,8 +246,7 @@
 		resets = <&rst 8>;
 		reset-names = "switch";
 		phy-mode = "gmii";
-		qca,phy4-mii-enable;
-		qca,mib-poll-interval = <500>;
+		phy4-mii-enable;
 
 		mdio-bus {
 			#address-cells = <1>;

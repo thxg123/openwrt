@@ -12,8 +12,7 @@ case "$FIRMWARE" in
 	case $board in
 	allnet,all-wap02860ac|\
 	engenius,eap1200h|\
-	engenius,enstationac-v1|\
-	glinet,gl-x750)
+    engenius,enstationac-v1)
 		caldata_extract "art" 0x5000 0x844
 		ath10k_patch_mac $(macaddr_add $(mtd_get_mac_binary art 0x0) +2)
 		;;

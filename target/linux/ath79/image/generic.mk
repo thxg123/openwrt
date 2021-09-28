@@ -1167,15 +1167,6 @@ define Device/glinet_gl-ar750
 endef
 TARGET_DEVICES += glinet_gl-ar750
 
-define Device/glinet_gl-x750
-  SOC := qca9531
-  DEVICE_VENDOR := GL.iNet
-  DEVICE_MODEL := GL-X750
-  DEVICE_PACKAGES := kmod-usb2 kmod-ath10k-ct ath10k-firmware-qca9887-ct
-  IMAGE_SIZE := 16000k
-endef
-TARGET_DEVICES += glinet_gl-x750
-
 define Device/hak5_lan-turtle
   $(Device/tplink-16mlzma)
   SOC := ar9331

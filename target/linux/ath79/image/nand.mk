@@ -153,7 +153,7 @@ TARGET_DEVICES += glinet_gl-ar300m-nor
 
 define Device/glinet_gl-mifi
   SOC := ar9331
-  DEVICE_VENDOR := GL.iNET
+  DEVICE_VENDOR := GL.iNet
   DEVICE_MODEL := GL-MIFI
   DEVICE_PACKAGES := kmod-usb-chipidea2
   IMAGE_SIZE := 16000k
@@ -201,6 +201,34 @@ define Device/glinet_gl-xe300-iot
   IMAGE/factory.img := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-ubi | append-gl-metadata
 endef
 TARGET_DEVICES += glinet_gl-xe300-iot
+
+define Device/glinet_gl-x750-common
+  SOC := qca9531
+  DEVICE_VENDOR := GL.iNet
+  DEVICE_MODEL := GL-X750
+  DEVICE_PACKAGES := kmod-usb2 kmod-ath10k ath10k-firmware-qca9887 block-mount PCI_SUPPORT kmod-usb-storage
+  SUPPORTED_DEVICES += gl-x750 glinet,gl-x750
+endef
+
+define Device/glinet_gl-x750-nor
+  $(Device/glinet_gl-x750-common)
+  DEVICE_VARIANT := NOR
+  IMAGE_SIZE := 16000k
+endef
+TARGET_DEVICES += glinet_gl-x750-nor
+
+define Device/glinet_gl-x750-nor-nand
+  $(Device/glinet_gl-x750-common)
+  DEVICE_VARIANT := NOR/NAND
+  KERNEL_SIZE := 4096k
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  VID_HDR_OFFSET := 2048
+  IMAGES := factory.img sysupgrade.tar
+  IMAGE/sysupgrade.tar := sysupgrade-tar | append-gl-metadata
+  IMAGE/factory.img := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-ubi | append-gl-metadata
+endef
+TARGET_DEVICES += glinet_gl-x750-nor-nand
 
 define Device/glinet_gl-ar750s-common
   SOC := qca9563

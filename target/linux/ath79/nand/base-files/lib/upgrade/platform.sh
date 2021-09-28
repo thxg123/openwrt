@@ -18,10 +18,8 @@ platform_do_upgrade() {
 	glinet,gl-ar300m-nor)
 		glinet_nand_nor_do_upgrade "$1"
 		;;
-	glinet,gl-ar750s-nor|\
-	glinet,gl-ar750s-nor-nand)
-		nand_nor_do_upgrade "$1"
-		;;
+	glinet,gl-x750-nor-nand|\
+	glinet,gl-ar750s-nor-nand|\
 	glinet,gl-xe300-iot|\
 	glinet,gl-xe300-nor-nand)
 		nand_nor_do_upgrade "$1"
