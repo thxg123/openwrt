@@ -1704,6 +1704,19 @@ ar40xx_start(struct ar40xx_priv *priv)
 	return 0;
 }
 
+static void
+ar40xx_phy_clear_100M_reg(struct ar40xx_priv *priv)
+{
+	int i;
+	u16 val;
+
+	for (i = 0; i < AR40XX_NUM_PORTS - 1; i++) {
+		ar40xx_phy_dbg_read(priv, i, AR40XX_PHY_DEBUG_0, &val);
+		val &= ~AR40XX_PHY_MANU_CTRL_EN;
+		ar40xx_phy_dbg_write(priv, i, AR40XX_PHY_DEBUG_0, val);
+	}
+}
+
 static const struct switch_dev_ops ar40xx_sw_ops = {
 	.attr_global = {
 		.attr = ar40xx_sw_attr_globals,
@@ -1864,6 +1877,7 @@ static int ar40xx_remove(struct platform_device *pdev)
 
 	cancel_delayed_work_sync(&priv->qm_dwork);
 	cancel_delayed_work_sync(&priv->mib_work);
+	ar40xx_phy_clear_100M_reg(priv);
 
 	unregister_switch(&priv->dev);
 

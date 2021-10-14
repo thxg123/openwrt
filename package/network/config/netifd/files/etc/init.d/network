@@ -140,5 +140,6 @@ service_triggers()
 
 shutdown() {
 	ifdown -a
+	echo "c000000.ess-switch" >/sys/bus/platform/drivers/ar40xx/unbind
 	sleep 1
 }
