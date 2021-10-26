@@ -211,6 +211,18 @@ define Device/engenius_ens620ext
 endef
 TARGET_DEVICES += engenius_ens620ext
 
+define Device/glinet_gl-b1300th
+	$(call Device/FitImage)
+	$(call Device/UbiFit)
+	DEVICE_DTS := qcom-ipq4018-gl-b1300th
+	BLOCKSIZE := 128k
+	PAGESIZE := 2048
+	DEVICE_TITLE := GL.iNet GL-B1300TH
+	DEVICE_DTS_CONFIG := config@ap.dk01.1-c2
+	IMAGE_SIZE := 131072k
+endef
+TARGET_DEVICES += glinet_gl-b1300th
+
 define Device/glinet_gl-b1300
 	$(call Device/FitImage)
 	DEVICE_TITLE := GL.iNet GL-B1300
@@ -272,6 +284,19 @@ define Device/linksys_ea8300
 	DEVICE_PACKAGES := uboot-envtools ath10k-firmware-qca9888-ct ipq-wifi-linksys_ea8300 kmod-usb-ledtrig-usbport
 endef
 TARGET_DEVICES += linksys_ea8300
+
+define Device/glinet_gl-s1300
+	$(call Device/FitImage)
+	DEVICE_TITLE := GL.iNet GL-S1300
+	BOARD_NAME := gl-s1300
+	DEVICE_DTS := qcom-ipq4029-gl-s1300
+	KERNEL_SIZE := 4096k
+	IMAGE_SIZE := 26624k
+	IMAGES := sysupgrade.bin
+	IMAGE/sysupgrade.bin := append-kernel |append-rootfs | pad-rootfs | append-metadata
+	DEVICE_PACKAGES := ipq-wifi-glinet_gl-s1300 kmod-fs-ext4 kmod-mmc kmod-spi-dev
+endef
+TARGET_DEVICES += glinet_gl-s1300
 
 define Device/meraki_mr33
 	$(call Device/FitImage)

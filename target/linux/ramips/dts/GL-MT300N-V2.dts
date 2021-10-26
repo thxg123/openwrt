@@ -83,7 +83,7 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "wdt", "gpio", "wled_an", "p0led_an", "p1led_an", "i2s";
+			ralink,group = "wdt", "gpio", "wled_an", "p0led_an", "p1led_an", "i2s", "i2c";
 			ralink,function = "gpio";
 		};
 	};
@@ -120,7 +120,6 @@
 			partition@30000 {
 				label = "u-boot-env";
 				reg = <0x30000 0x10000>;
-				read-only;
 			};
 
 			factory: partition@40000 {
