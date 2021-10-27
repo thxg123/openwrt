@@ -24,6 +24,8 @@ Branches Introduction
 
 - **openwrt-19.07.7** Compile version 3.201 firmware based on this source code
 
+- **openwrt-19.07.8** Under development, not recommended
+
 - **openwrt-trunk** Compile S1300 firmware supporting emmc
 
 **For example, if you want to use openwrt-19.07.7 to compile the production firmware, you need to use *```git checkout openwrt-19.07.7```* command to switch openwrt-19.07.7 branch.**
