@@ -1,7 +1,5 @@
-Index: b/drivers/tty/serial/8250/8250.h
-===================================================================
---- a/drivers/tty/serial/8250/8250.h	2021-01-18 19:25:59.000000000 +0800
-+++ b/drivers/tty/serial/8250/8250.h	2021-01-18 19:25:59.000000000 +0800
+--- a/drivers/tty/serial/8250/8250.h
++++ b/drivers/tty/serial/8250/8250.h
 @@ -15,6 +15,8 @@
  #include <linux/serial_reg.h>
  #include <linux/dmaengine.h>
@@ -11,10 +9,8 @@ Index: b/drivers/tty/serial/8250/8250.h
  struct uart_8250_dma {
  	int (*tx_dma)(struct uart_8250_port *p);
  	int (*rx_dma)(struct uart_8250_port *p);
-Index: b/drivers/tty/serial/8250/8250_port.c
-===================================================================
---- a/drivers/tty/serial/8250/8250_port.c	2021-01-18 19:25:59.000000000 +0800
-+++ b/drivers/tty/serial/8250/8250_port.c	2021-01-18 19:25:59.000000000 +0800
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
 @@ -38,6 +38,7 @@
  #include <linux/uaccess.h>
  #include <linux/pm_runtime.h>
@@ -46,7 +42,7 @@ Index: b/drivers/tty/serial/8250/8250_port.c
  	}
  }
  
-@@ -1553,6 +1564,9 @@ static void serial8250_stop_tx(struct ua
+@@ -1552,6 +1563,9 @@ static void serial8250_stop_tx(struct ua
  
  static inline void __start_tx(struct uart_port *port)
  {
@@ -56,10 +52,8 @@ Index: b/drivers/tty/serial/8250/8250_port.c
  	struct uart_8250_port *up = up_to_u8250p(port);
  
  	if (up->dma && !up->dma->tx_dma(up))
-Index: b/drivers/tty/serial/8250/8250_of.c
-===================================================================
---- a/drivers/tty/serial/8250/8250_of.c	2021-01-18 19:25:59.000000000 +0800
-+++ b/drivers/tty/serial/8250/8250_of.c	2021-01-18 19:26:53.000000000 +0800
+--- a/drivers/tty/serial/8250/8250_of.c
++++ b/drivers/tty/serial/8250/8250_of.c
 @@ -193,6 +193,7 @@ err_pmruntime:
  /*
   * Try to register a serial port

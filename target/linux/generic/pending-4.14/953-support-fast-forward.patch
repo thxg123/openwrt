@@ -1,7 +1,5 @@
-Index: linux-4.14.209/include/linux/skbuff.h
-===================================================================
---- linux-4.14.209.orig/include/linux/skbuff.h
-+++ linux-4.14.209/include/linux/skbuff.h
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
 @@ -772,6 +772,7 @@ struct sk_buff {
  	__u8			ipvs_property:1;
  
@@ -10,11 +8,9 @@ Index: linux-4.14.209/include/linux/skbuff.h
  	__u8			remcsum_offload:1;
  #ifdef CONFIG_NET_SWITCHDEV
  	__u8			offload_fwd_mark:1;
-Index: linux-4.14.209/net/bridge/br_if.c
-===================================================================
---- linux-4.14.209.orig/net/bridge/br_if.c
-+++ linux-4.14.209/net/bridge/br_if.c
-@@ -653,3 +653,25 @@ void br_port_flags_change(struct net_bri
+--- a/net/bridge/br_if.c
++++ b/net/bridge/br_if.c
+@@ -668,3 +668,25 @@ void br_port_flags_change(struct net_bri
  	if (mask & BR_AUTO_MASK)
  		nbp_update_port_count(br);
  }
@@ -40,10 +36,8 @@ Index: linux-4.14.209/net/bridge/br_if.c
 +	u64_stats_update_end(&stats->syncp);
 +}
 +EXPORT_SYMBOL_GPL(br_dev_update_stats);
-Index: linux-4.14.209/net/core/dev.c
-===================================================================
---- linux-4.14.209.orig/net/core/dev.c
-+++ linux-4.14.209/net/core/dev.c
+--- a/net/core/dev.c
++++ b/net/core/dev.c
 @@ -2997,8 +2997,15 @@ static int xmit_one(struct sk_buff *skb,
  	unsigned int len;
  	int rc;
@@ -94,10 +88,8 @@ Index: linux-4.14.209/net/core/dev.c
  	if (skb_skip_tc_classify(skb))
  		goto skip_classify;
  
-Index: linux-4.14.209/net/netfilter/nf_conntrack_proto_tcp.c
-===================================================================
---- linux-4.14.209.orig/net/netfilter/nf_conntrack_proto_tcp.c
-+++ linux-4.14.209/net/netfilter/nf_conntrack_proto_tcp.c
+--- a/net/netfilter/nf_conntrack_proto_tcp.c
++++ b/net/netfilter/nf_conntrack_proto_tcp.c
 @@ -35,6 +35,7 @@
  
  /* Do not check the TCP window for incoming packets  */
@@ -106,10 +98,8 @@ Index: linux-4.14.209/net/netfilter/nf_conntrack_proto_tcp.c
  
  /* "Be conservative in what you do,
      be liberal in what you accept from others."
-Index: linux-4.14.209/include/net/netfilter/nf_conntrack_ecache.h
-===================================================================
---- linux-4.14.209.orig/include/net/netfilter/nf_conntrack_ecache.h
-+++ linux-4.14.209/include/net/netfilter/nf_conntrack_ecache.h
+--- a/include/net/netfilter/nf_conntrack_ecache.h
++++ b/include/net/netfilter/nf_conntrack_ecache.h
 @@ -71,6 +71,10 @@ struct nf_ct_event {
  	int report;
  };
@@ -171,10 +161,8 @@ Index: linux-4.14.209/include/net/netfilter/nf_conntrack_ecache.h
  
  	return nf_conntrack_eventmask_report(1 << event, ct, 0, 0);
  }
-Index: linux-4.14.209/include/net/netns/conntrack.h
-===================================================================
---- linux-4.14.209.orig/include/net/netns/conntrack.h
-+++ linux-4.14.209/include/net/netns/conntrack.h
+--- a/include/net/netns/conntrack.h
++++ b/include/net/netns/conntrack.h
 @@ -114,7 +114,11 @@ struct netns_ct {
  
  	struct ct_pcpu __percpu *pcpu_lists;
@@ -187,10 +175,8 @@ Index: linux-4.14.209/include/net/netns/conntrack.h
  	struct nf_exp_event_notifier __rcu *nf_expect_event_cb;
  	struct nf_ip_net	nf_ct_proto;
  #if defined(CONFIG_NF_CONNTRACK_LABELS)
-Index: linux-4.14.209/net/netfilter/Kconfig
-===================================================================
---- linux-4.14.209.orig/net/netfilter/Kconfig
-+++ linux-4.14.209/net/netfilter/Kconfig
+--- a/net/netfilter/Kconfig
++++ b/net/netfilter/Kconfig
 @@ -124,6 +124,14 @@ config NF_CONNTRACK_EVENTS
  
  	  If unsure, say `N'.
@@ -206,11 +192,9 @@ Index: linux-4.14.209/net/netfilter/Kconfig
  config NF_CONNTRACK_RTCACHE
  	tristate "Cache route entries in conntrack objects"
  	depends on NETFILTER_ADVANCED
-Index: linux-4.14.209/net/netfilter/nf_conntrack_core.c
-===================================================================
---- linux-4.14.209.orig/net/netfilter/nf_conntrack_core.c
-+++ linux-4.14.209/net/netfilter/nf_conntrack_core.c
-@@ -2249,6 +2249,9 @@ int nf_conntrack_init_net(struct net *ne
+--- a/net/netfilter/nf_conntrack_core.c
++++ b/net/netfilter/nf_conntrack_core.c
+@@ -2250,6 +2250,9 @@ int nf_conntrack_init_net(struct net *ne
  	ret = nf_conntrack_proto_pernet_init(net);
  	if (ret < 0)
  		goto err_proto;
@@ -220,10 +204,8 @@ Index: linux-4.14.209/net/netfilter/nf_conntrack_core.c
  	return 0;
  
  err_proto:
-Index: linux-4.14.209/net/netfilter/nf_conntrack_ecache.c
-===================================================================
---- linux-4.14.209.orig/net/netfilter/nf_conntrack_ecache.c
-+++ linux-4.14.209/net/netfilter/nf_conntrack_ecache.c
+--- a/net/netfilter/nf_conntrack_ecache.c
++++ b/net/netfilter/nf_conntrack_ecache.c
 @@ -18,6 +18,9 @@
  #include <linux/stddef.h>
  #include <linux/err.h>
@@ -372,10 +354,8 @@ Index: linux-4.14.209/net/netfilter/nf_conntrack_ecache.c
  EXPORT_SYMBOL_GPL(nf_conntrack_unregister_notifier);
  
  int nf_ct_expect_register_notifier(struct net *net,
-Index: linux-4.14.209/net/netfilter/nf_conntrack_netlink.c
-===================================================================
---- linux-4.14.209.orig/net/netfilter/nf_conntrack_netlink.c
-+++ linux-4.14.209/net/netfilter/nf_conntrack_netlink.c
+--- a/net/netfilter/nf_conntrack_netlink.c
++++ b/net/netfilter/nf_conntrack_netlink.c
 @@ -28,6 +28,9 @@
  #include <linux/netlink.h>
  #include <linux/spinlock.h>
@@ -386,7 +366,7 @@ Index: linux-4.14.209/net/netfilter/nf_conntrack_netlink.c
  #include <linux/slab.h>
  #include <linux/siphash.h>
  
-@@ -620,15 +623,22 @@ static size_t ctnetlink_nlmsg_size(const
+@@ -623,15 +626,22 @@ static size_t ctnetlink_nlmsg_size(const
  	       + ctnetlink_label_size(ct)
  	       ;
  }
@@ -410,7 +390,7 @@ Index: linux-4.14.209/net/netfilter/nf_conntrack_netlink.c
  	struct nf_conn *ct = item->ct;
  	struct sk_buff *skb;
  	unsigned int type;
-@@ -3337,9 +3347,15 @@ static int ctnetlink_stat_exp_cpu(struct
+@@ -3340,9 +3350,15 @@ static int ctnetlink_stat_exp_cpu(struct
  }
  
  #ifdef CONFIG_NF_CONNTRACK_EVENTS

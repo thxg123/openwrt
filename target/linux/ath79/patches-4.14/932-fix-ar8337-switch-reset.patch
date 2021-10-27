@@ -1,7 +1,5 @@
-Index: linux-4.14.209/drivers/net/phy/ar8216.c
-===================================================================
---- linux-4.14.209.orig/drivers/net/phy/ar8216.c
-+++ linux-4.14.209/drivers/net/phy/ar8216.c
+--- a/drivers/net/phy/ar8216.c
++++ b/drivers/net/phy/ar8216.c
 @@ -1445,6 +1445,36 @@ ar8xxx_sw_reset_switch(struct switch_dev
  	return chip->sw_hw_apply(dev);
  }
@@ -39,10 +37,8 @@ Index: linux-4.14.209/drivers/net/phy/ar8216.c
  int
  ar8xxx_sw_set_reset_mibs(struct switch_dev *dev,
  			 const struct switch_attr *attr,
-Index: linux-4.14.209/drivers/net/phy/ar8216.h
-===================================================================
---- linux-4.14.209.orig/drivers/net/phy/ar8216.h
-+++ linux-4.14.209/drivers/net/phy/ar8216.h
+--- a/drivers/net/phy/ar8216.h
++++ b/drivers/net/phy/ar8216.h
 @@ -612,6 +612,8 @@ ar8xxx_sw_hw_apply(struct switch_dev *de
  int
  ar8xxx_sw_reset_switch(struct switch_dev *dev);
@@ -52,10 +48,8 @@ Index: linux-4.14.209/drivers/net/phy/ar8216.h
  ar8xxx_sw_get_port_link(struct switch_dev *dev, int port,
  			struct switch_port_link *link);
  int
-Index: linux-4.14.209/drivers/net/phy/ar8327.c
-===================================================================
---- linux-4.14.209.orig/drivers/net/phy/ar8327.c
-+++ linux-4.14.209/drivers/net/phy/ar8327.c
+--- a/drivers/net/phy/ar8327.c
++++ b/drivers/net/phy/ar8327.c
 @@ -1469,7 +1469,7 @@ static const struct switch_dev_ops ar832
  	.get_vlan_ports = ar8327_sw_get_ports,
  	.set_vlan_ports = ar8327_sw_set_ports,

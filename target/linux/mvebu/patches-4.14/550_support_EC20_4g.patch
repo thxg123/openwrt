@@ -1,6 +1,6 @@
---- a/drivers/usb/serial/option.c	2020-03-26 15:01:47.986237134 +0800
-+++ b/drivers/usb/serial/option.c	2020-03-26 16:51:56.912568912 +0800
-@@ -571,6 +571,18 @@
+--- a/drivers/usb/serial/option.c
++++ b/drivers/usb/serial/option.c
+@@ -586,6 +586,18 @@ static void option_instat_callback(struc
  
  
  static const struct usb_device_id option_ids[] = {
@@ -19,7 +19,7 @@
  	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_COLT) },
  	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA) },
  	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA_LIGHT) },
-@@ -2033,6 +2045,9 @@
+@@ -2114,6 +2126,9 @@ static struct usb_serial_driver option_1
  #ifdef CONFIG_PM
  	.suspend           = usb_wwan_suspend,
  	.resume            = usb_wwan_resume,
@@ -29,7 +29,7 @@
  #endif
  };
  
-@@ -2045,6 +2060,24 @@
+@@ -2134,6 +2149,24 @@ static bool iface_is_reserved(unsigned l
  static int option_probe(struct usb_serial *serial,
  			const struct usb_device_id *id)
  {
@@ -54,9 +54,9 @@
  	struct usb_interface_descriptor *iface_desc =
  				&serial->interface->cur_altsetting->desc;
  	struct usb_device_descriptor *dev_desc = &serial->dev->descriptor;
---- a/drivers/usb/serial/qcserial.c	2020-03-26 15:01:47.982237177 +0800
-+++ b/drivers/usb/serial/qcserial.c	2020-03-26 16:51:56.908568950 +0800
-@@ -92,7 +92,6 @@
+--- a/drivers/usb/serial/qcserial.c
++++ b/drivers/usb/serial/qcserial.c
+@@ -92,7 +92,6 @@ static const struct usb_device_id id_tab
  	{USB_DEVICE(0x03f0, 0x241d)},	/* HP Gobi 2000 QDL device (VP412) */
  	{USB_DEVICE(0x03f0, 0x251d)},	/* HP Gobi 2000 Modem device (VP412) */
  	{USB_DEVICE(0x05c6, 0x9214)},	/* Acer Gobi 2000 QDL device (VP413) */
@@ -64,11 +64,11 @@
  	{USB_DEVICE(0x05c6, 0x9264)},	/* Asus Gobi 2000 QDL device (VR305) */
  	{USB_DEVICE(0x05c6, 0x9265)},	/* Asus Gobi 2000 Modem device (VR305) */
  	{USB_DEVICE(0x05c6, 0x9234)},	/* Top Global Gobi 2000 QDL device (VR306) */
---- a/drivers/usb/serial/usb_wwan.c	2020-03-26 15:01:47.986237134 +0800
-+++ b/drivers/usb/serial/usb_wwan.c	2020-03-26 16:51:56.916568875 +0800
-@@ -502,6 +502,20 @@
- 			  usb_sndbulkpipe(serial->dev, endpoint) | dir,
- 			  buf, len, callback, ctx);
+--- a/drivers/usb/serial/usb_wwan.c
++++ b/drivers/usb/serial/usb_wwan.c
+@@ -510,6 +510,20 @@ static struct urb *usb_wwan_setup_urb(st
+ 	if (intfdata->use_zlp && dir == USB_DIR_OUT)
+ 		urb->transfer_flags |= URB_ZERO_PACKET;
  
 +#if 1 //Added by Quectel for zero packet
 +	if (dir == USB_DIR_OUT) {
@@ -87,8 +87,8 @@
  	return urb;
  }
  
---- a/drivers/net/usb/qmi_wwan.c	2020-03-27 12:03:55.799880288 +0800
-+++ b/drivers/net/usb/qmi_wwan.c	2020-03-27 12:17:10.241977086 +0800
+--- a/drivers/net/usb/qmi_wwan.c
++++ b/drivers/net/usb/qmi_wwan.c
 @@ -23,6 +23,71 @@
  #include <linux/usb/usbnet.h>
  #include <linux/usb/cdc-wdm.h>
@@ -161,7 +161,7 @@
  /* This driver supports wwan (3G/LTE/?) devices using a vendor
   * specific management protocol called Qualcomm MSM Interface (QMI) -
   * in addition to the more common AT commands over serial interface
-@@ -750,6 +815,28 @@
+@@ -738,6 +803,28 @@ static int qmi_wwan_bind(struct usbnet *
  	}
  	dev->net->netdev_ops = &qmi_wwan_netdev_ops;
  	dev->net->sysfs_groups[0] = &qmi_wwan_sysfs_attr_group;
@@ -190,7 +190,7 @@
  err:
  	return status;
  }
-@@ -841,6 +928,10 @@
+@@ -829,6 +916,10 @@ static const struct driver_info	qmi_wwan
  	.unbind		= qmi_wwan_unbind,
  	.manage_power	= qmi_wwan_manage_power,
  	.rx_fixup       = qmi_wwan_rx_fixup,
@@ -201,8 +201,8 @@
  };
  
  static const struct driver_info	qmi_wwan_info_quirk_dtr = {
-@@ -893,6 +984,29 @@
- 	.driver_info = (unsigned long)&qmi_wwan_info_quirk_quectel_dyncfg
+@@ -875,6 +966,29 @@ static const struct driver_info	qmi_wwan
+ 	.driver_info = (unsigned long)&qmi_wwan_info_quirk_dtr
  
  static const struct usb_device_id products[] = {
 +#if 1 //Added by Quectel
@@ -231,7 +231,7 @@
  	/* 1. CDC ECM like devices match on the control interface */
  	{	/* Huawei E392, E398 and possibly others sharing both device id and more... */
  		USB_VENDOR_AND_INTERFACE_INFO(HUAWEI_VENDOR_ID, USB_CLASS_VENDOR_SPEC, 1, 9),
-@@ -1323,7 +1437,6 @@
+@@ -1322,7 +1436,6 @@ static const struct usb_device_id produc
  	{QMI_GOBI_DEVICE(0x05c6, 0x9225)},	/* Sony Gobi 2000 Modem device (N0279, VU730) */
  	{QMI_GOBI_DEVICE(0x05c6, 0x9245)},	/* Samsung Gobi 2000 Modem device (VL176) */
  	{QMI_GOBI_DEVICE(0x03f0, 0x251d)},	/* HP Gobi 2000 Modem device (VP412) */

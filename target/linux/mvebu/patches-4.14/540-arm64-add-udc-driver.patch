@@ -52,7 +52,7 @@
  static struct class *udc_class;
  static LIST_HEAD(udc_list);
  static LIST_HEAD(gadget_driver_pending_list);
-@@ -1358,35 +1338,14 @@ int usb_gadget_probe_driver(struct usb_g
+@@ -1369,35 +1349,14 @@ int usb_gadget_probe_driver(struct usb_g
  		return -EINVAL;
  
  	mutex_lock(&udc_lock);
@@ -869,7 +869,7 @@
  		udc->qwork = create_singlethread_workqueue("mv_udc_queue");
  		if (!udc->qwork) {
  			dev_err(&pdev->dev, "cannot create workqueue\n");
-@@ -2325,6 +2438,11 @@ err_free_dma:
+@@ -2326,6 +2439,11 @@ err_free_dma:
  			udc->ep_dqh, udc->ep_dqh_dma);
  err_disable_clock:
  	mv_udc_disable_internal(udc);
@@ -881,7 +881,7 @@
  
  	return retval;
  }
-@@ -2340,7 +2458,7 @@ static int mv_udc_suspend(struct device
+@@ -2341,7 +2459,7 @@ static int mv_udc_suspend(struct device
  	if (udc->transceiver)
  		return 0;
  
@@ -890,7 +890,7 @@
  		if (udc->pdata->vbus->poll() == VBUS_HIGH) {
  			dev_info(&udc->dev->dev, "USB cable is connected!\n");
  			return -EAGAIN;
-@@ -2361,6 +2479,12 @@ static int mv_udc_suspend(struct device
+@@ -2362,6 +2480,12 @@ static int mv_udc_suspend(struct device
  		mv_udc_disable_internal(udc);
  	}
  
@@ -903,7 +903,7 @@
  	return 0;
  }
  
-@@ -2375,6 +2499,20 @@ static int mv_udc_resume(struct device *
+@@ -2376,6 +2500,20 @@ static int mv_udc_resume(struct device *
  	if (udc->transceiver)
  		return 0;
  
@@ -924,7 +924,7 @@
  	if (!udc->clock_gating) {
  		retval = mv_udc_enable_internal(udc);
  		if (retval)
-@@ -2410,12 +2548,19 @@ static void mv_udc_shutdown(struct platf
+@@ -2411,12 +2549,19 @@ static void mv_udc_shutdown(struct platf
  	mv_udc_disable(udc);
  }
  
@@ -944,7 +944,7 @@
  #ifdef CONFIG_PM
  		.pm	= &mv_udc_pm_ops,
  #endif
-@@ -2426,4 +2571,5 @@ module_platform_driver(udc_driver);
+@@ -2427,4 +2572,5 @@ module_platform_driver(udc_driver);
  MODULE_ALIAS("platform:mv-udc");
  MODULE_DESCRIPTION(DRIVER_DESC);
  MODULE_AUTHOR("Chao Xie <chao.xie@marvell.com>");

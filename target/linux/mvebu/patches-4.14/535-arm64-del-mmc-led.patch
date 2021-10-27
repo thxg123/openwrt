@@ -1,6 +1,6 @@
---- a/drivers/mmc/host/sdhci.c	2019-07-08 22:26:53.542096346 +0800
-+++ b/drivers/mmc/host/sdhci.c	2019-07-08 22:27:47.426457950 +0800
-@@ -3967,14 +3967,14 @@
+--- a/drivers/mmc/host/sdhci.c
++++ b/drivers/mmc/host/sdhci.c
+@@ -3978,14 +3978,14 @@ int __sdhci_add_host(struct sdhci_host *
  		       mmc_hostname(mmc), host->irq, ret);
  		goto untasklet;
  	}

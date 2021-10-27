@@ -1,5 +1,5 @@
---- a/drivers/input/keyboard/keys-glmv1000.c	1969-12-31 16:00:00.000000000 -0800
-+++ b/drivers/input/keyboard/keys-glmv1000.c	2019-06-05 05:57:25.645189647 -0700
+--- /dev/null
++++ b/drivers/input/keyboard/keys-glmv1000.c
 @@ -0,0 +1,78 @@
 +/*
 + * Keypad device register for GL.inet mv1000.
@@ -79,8 +79,8 @@
 +MODULE_AUTHOR("li.zhang <li.zhang@gl-inet.com>");
 +MODULE_DESCRIPTION("GL.inet MV1000 KEY");
 +MODULE_LICENSE("GPL");
---- a/drivers/input/keyboard/Makefile	2019-06-05 20:11:48.658047482 -0700
-+++ b/drivers/input/keyboard/Makefile	2019-06-05 05:57:25.621189647 -0700
+--- a/drivers/input/keyboard/Makefile
++++ b/drivers/input/keyboard/Makefile
 @@ -5,6 +5,7 @@
  
  # Each configuration option enables a list of files.
@@ -89,9 +89,9 @@
  obj-$(CONFIG_KEYBOARD_ADC)		+= adc-keys.o
  obj-$(CONFIG_KEYBOARD_ADP5520)		+= adp5520-keys.o
  obj-$(CONFIG_KEYBOARD_ADP5588)		+= adp5588-keys.o
---- a/drivers/input/keyboard/Kconfig	2019-06-05 20:11:48.658047482 -0700
-+++ b/drivers/input/keyboard/Kconfig	2019-06-05 05:57:25.621189647 -0700
-@@ -12,6 +12,12 @@
+--- a/drivers/input/keyboard/Kconfig
++++ b/drivers/input/keyboard/Kconfig
+@@ -12,6 +12,12 @@ menuconfig INPUT_KEYBOARD
  
  if INPUT_KEYBOARD
  

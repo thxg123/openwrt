@@ -1,7 +1,5 @@
-Index: linux-4.14.209/drivers/leds/trigger/ledtrig-netdev.c
-===================================================================
---- linux-4.14.209.orig/drivers/leds/trigger/ledtrig-netdev.c
-+++ linux-4.14.209/drivers/leds/trigger/ledtrig-netdev.c
+--- a/drivers/leds/trigger/ledtrig-netdev.c
++++ b/drivers/leds/trigger/ledtrig-netdev.c
 @@ -111,6 +111,7 @@ static ssize_t device_name_store(struct
  {
  	struct led_classdev *led_cdev = dev_get_drvdata(dev);
