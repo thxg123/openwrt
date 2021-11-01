@@ -1,5 +1,7 @@
---- a/include/mbedtls/config.h
-+++ b/include/mbedtls/config.h
+Index: mbedtls-2.16.10/include/mbedtls/config.h
+===================================================================
+--- mbedtls-2.16.10.orig/include/mbedtls/config.h
++++ mbedtls-2.16.10/include/mbedtls/config.h
 @@ -692,14 +692,14 @@
   *
   * Enable Output Feedback mode (OFB) for symmetric ciphers.
@@ -117,15 +119,6 @@
  
  /**
   * \def MBEDTLS_SHA256_SMALLER
-@@ -1515,7 +1515,7 @@
-  *          configuration of this extension).
-  *
-  */
--#define MBEDTLS_SSL_RENEGOTIATION
-+//#define MBEDTLS_SSL_RENEGOTIATION
- 
- /**
-  * \def MBEDTLS_SSL_SRV_SUPPORT_SSLV2_CLIENT_HELLO
 @@ -1690,7 +1690,7 @@
   *
   * Comment this macro to disable support for SSL session tickets
